@@ -12,17 +12,17 @@
 <body>
     <h1>指令转换器1.0.2</h1>
     <div class="line"></div>
-    <p>本次更新内容：\n
-1.支持多行转换\n
+    <p>本次更新内容：<br>
+1.支持多行转换<br>
 2.修复了bug
 </p>
     
-    <label for="inputFormat1">Input Format 1:</label>
+    <label for="inputFormat1">输入指令：</label>
     <textarea id="inputFormat1" rows="4" cols="50"></textarea>
 
-    <button onclick="convertAndDisplay()">Convert</button>
+    <button onclick="convertAndDisplay()">确定</button>
 
-    <h2>Output Format 2:</h2>
+    <h2>结果：</h2>
     <div id="outputFormat2"></div>
 
     <script>
@@ -37,7 +37,7 @@
                     const [, arg1, arg2, arg3] = match;
                     return `execute as ${arg1} at ${arg2} run ${arg3}`;
                 } else {
-                    return line;
+                    return "指令格式不对！";
                 }
             });
 
