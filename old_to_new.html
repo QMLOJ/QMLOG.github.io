@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+
+<!--<link rel="stylesheet" href="style.css">-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>指令转换器v1.0.1</title>
+    <title>指令转换器1.0.2</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>指令转换器</h1>
-    <h2>版本：1.0.1</h2>
-    <label for="inputFormat1">输入指令:</label>
-    <textarea name="" id="inputFormat1" cols="30" rows="10"></textarea>
-    <button onclick="convertAndDisplay()">确定</button>
-    <br>
-    <a style="color: #0076FF;">结果:</a><a id="outputFormat2" style="color: #1080FF;"></a>
+    <h1>指令转换器1.0.2</h1>
+    <div class="line"></div>
+    <p>本次更新内容：\n
+1.支持多行转换\n
+2.修复了bug
+</p>
+    
+    <label for="inputFormat1">Input Format 1:</label>
+    <textarea id="inputFormat1" rows="4" cols="50"></textarea>
+
+    <button onclick="convertAndDisplay()">Convert</button>
+
+    <h2>Output Format 2:</h2>
+    <div id="outputFormat2"></div>
 
     <script>
         function convertFormat(input) {
-            const regex = /execute\s+(\S+)\s+(\S+)\s+(.+)/;
-            const match = input.match(regex);
+            const lines = input.split('\n');
 
-            if (match) {
-                const [, arg1, arg2, arg3] = match;
-                const output = `execute as ${arg1} at ${arg2} run ${arg3}`;
-                return output;
-            } else {
-                return '指令格式不对！';
-            }
+            const convertedLines = lines.map(line => {
+                const regex = /execute\s+(\S+)\s+(\S+)\s+(.+)/;
+                const match = line.match(regex);
+
+                if (match) {
+                    const [, arg1, arg2, arg3] = match;
+                    return `execute as ${arg1} at ${arg2} run ${arg3}`;
+                } else {
+                    return line;
+                }
+            });
+
+            return convertedLines.join('\n');
         }
 
         function convertAndDisplay() {
@@ -39,8 +54,5 @@
             outputElement.textContent = outputFormat2;
         }
     </script>
-    <noscript>
-        <p>您的浏览器不支持 JavaScript 或已禁用脚本。请确保启用 JavaScript 才可使用。</p>
-    </noscript>
 </body>
 </html>
